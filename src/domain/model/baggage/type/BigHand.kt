@@ -1,3 +1,6 @@
 package domain.model.baggage.type
 
-data class BigHand() : BaggageType()
+class BigHand : BaggageType() {
+    override val emoji: String = super.emoji + super.emoji
+    override val title: String = "BigHandBaggage"
+}
