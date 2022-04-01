@@ -6,13 +6,15 @@ import domain.model.baggage.type.Checked
 import domain.model.baggage.type.Hand
 import java.math.BigDecimal
 
-// no puede ser data class marca un error
-open class BaggagePackage(
-    open val name: String = "Baggage Plan",
-    open var price: BigDecimal = BigDecimal(0.0)
-) {
+// no puede ser open y abstract
+// o es obligatorio de implementar - abstract
+// o es opcional - open
+abstract class BaggagePackage {
 
-    open val boardingTurn: BoardingTurn = BoardingTurn.FIRST
+    abstract val name: String
+    abstract val price: BigDecimal
+    abstract val boardingTurn: BoardingTurn
+
     open val baggageTypes: List<BaggageType> = listOf(
         Hand(),
         BigHand(),
