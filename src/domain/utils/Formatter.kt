@@ -8,7 +8,7 @@ interface Formatter<T> {
         val stringBuilder = StringBuilder()
 
         t.forEach {
-            stringBuilder.append(format(it))
+            stringBuilder.appendLine(format(it))
         }
 
         return stringBuilder.toString()

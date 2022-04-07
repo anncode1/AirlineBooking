@@ -1,4 +1,4 @@
-package presentation
+package presentation.flight
 
 import domain.model.Flight
 import domain.utils.Formatter
