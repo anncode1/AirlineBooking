@@ -1,5 +1,6 @@
 package domain.model
 
+import domain.utils.Formatter
 import java.math.BigDecimal
 import java.time.Duration
 import java.time.format.DateTimeFormatter
