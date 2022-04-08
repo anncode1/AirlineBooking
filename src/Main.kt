@@ -1,5 +1,7 @@
 
+import domain.model.Flight
 import domain.usecases.GetFlights
+import domain.utils.Formatter
 import presentation.PresentationFormat
 import presentation.flight.FlightPresentationFactory
 import presentation.flight.formats.FlightConsoleFormat
@@ -15,7 +17,8 @@ fun main() {
 //    println(flightsHTMLFormat)
 
     val presentationFormat = PresentationFormat.CONSOLE
-    val flightFormat = FlightPresentationFactory().getPresentationFormat(presentationFormat)
+    val flightFormat: Formatter<Flight> =
+        FlightPresentationFactory().getPresentationFormat(presentationFormat)
     val flights = GetFlights(flightFormat).invoke()
     println(flights)
 }
