@@ -1,24 +1,27 @@
 
-import domain.model.Flight
-import domain.usecases.GetFlights
-import domain.utils.Formatter
-import presentation.PresentationFormat
-import presentation.flight.FlightPresentationFactory
+import domain.usecases.flight.GetFlights
 import presentation.flight.formats.FlightConsoleFormat
-import presentation.flight.formats.FlightHTMLFormat
+import java.time.Month
 
 fun main() {
-    val getFlights = GetFlights(FlightConsoleFormat())
-    val flightsFormat = getFlights.invoke()
-//    println(flightsFormat)
+    val getFlights = GetFlights().invoke(Month.JANUARY)
+    getFlights.forEach { (t, u) ->
+        print("$t. ")
+        println(FlightConsoleFormat().format(u))
+    }
 
-    val getHTMLFlights = GetFlights(FlightHTMLFormat())
-    val flightsHTMLFormat = getHTMLFlights.invoke()
-//    println(flightsHTMLFormat)
+    /*println("BaggageVClub")
+    GetBaggages(BaggageVClubData()).invoke()
+        .forEach { (t, u) ->
+            print("$t. ")
+            println(BaggagePackageConsole().format(u))
+        }*/
 
-    val presentationFormat = PresentationFormat.CONSOLE
-    val flightFormat: Formatter<Flight> =
-        FlightPresentationFactory().getPresentationFormat(presentationFormat)
-    val flights = GetFlights(flightFormat).invoke()
-    println(flights)
+    /*println("Baggage Regular")
+    GetBaggagePackages(BaggageRegularData()).invoke()
+        .forEach { (t, u) ->
+            print("$t. ")
+            println(BaggagePackageConsole().format(u))
+        }*/
+
 }
