@@ -1,7 +1,7 @@
 package presentation.flight.formats
 
 import domain.model.Flight
-import domain.utils.Formatter
+import presentation.utils.Formatter
 import java.time.format.DateTimeFormatter
 
 class FlightHTMLFormat : Formatter<Flight> {

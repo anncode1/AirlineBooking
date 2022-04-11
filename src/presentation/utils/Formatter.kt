@@ -1,4 +1,4 @@
-package domain.utils
+package presentation.utils
 
 // en lugar de usar Any podemos usar un Generic
 interface Formatter<T> {

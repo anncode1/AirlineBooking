@@ -1,7 +1,7 @@
 package presentation.ticket.formats
 
 import domain.model.Ticket
-import domain.utils.Formatter
+import presentation.utils.Formatter
 
 class TicketConsoleFormat : Formatter<Ticket> {
     override fun format(t: Ticket): String {

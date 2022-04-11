@@ -1,7 +1,7 @@
 package presentation.flight
 
 import domain.model.Flight
-import domain.utils.Formatter
+import presentation.utils.Formatter
 import presentation.PresentationFactory
 import presentation.PresentationFormat
 import presentation.flight.formats.FlightConsoleFormat
