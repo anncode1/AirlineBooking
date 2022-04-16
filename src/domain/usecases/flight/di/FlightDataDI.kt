@@ -1,4 +1,4 @@
-package data.flight.di
+package domain.usecases.flight.di
 
 import data.airbooking.AirBookingLocalSource
 import data.aircraft.AirCraftLocalSource
