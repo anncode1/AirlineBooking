@@ -1,9 +1,9 @@
 
 import domain.usecases.flight.GetFlightSaved
 import domain.usecases.flight.di.FlightDataDI
+import domain.usecases.ticket.di.TicketDataUI
 import domain.usecases.flight.GetFlights
 import domain.usecases.ticket.AssignFlightToTicket
-import domain.usecases.ticket.di.TicketDataDI
 import presentation.PresentationFormat
 import presentation.flight.FlightPresentationFactory
 import java.time.Month
@@ -28,14 +28,14 @@ fun main() {
         println(flightsPresentation.format(u))
     }
 
-    TicketDataDI()
+    TicketDataUI()
     val flight = getFlights[1]
     AssignFlightToTicket(
-        TicketDataDI().providesTicket()
+        TicketDataUI().providesTicket()
     ).invoke(flight)
 
     val flightSaved = GetFlightSaved(
-        TicketDataDI().providesTicket()
+        TicketDataUI().providesTicket()
     ).invoke()
 
     println("Flight Saved")
