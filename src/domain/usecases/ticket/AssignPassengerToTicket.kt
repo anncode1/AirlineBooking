@@ -1,6 +1,6 @@
 package domain.usecases.ticket
 
-import domain.datasource.ticket.TicketDataSource
+import domain.datasource.ticket.TicketsDataSource
 import domain.model.Passenger
 import domain.model.Ticket
 
@@ -8,10 +8,10 @@ import domain.model.Ticket
  * 7. Introducir Información del Pasajero
  * */
 class AssignPassengerToTicket(
-    private val ticketDataSource: TicketDataSource
+    private val ticketsDataSource: TicketsDataSource
 ) {
     operator fun invoke(passenger: Passenger): Ticket {
-        return ticketDataSource.ticket.apply {
+        return ticketsDataSource.tickets.first().apply {
             this.passenger = passenger
         }
     }
