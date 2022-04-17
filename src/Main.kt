@@ -1,47 +1,39 @@
 
+import domain.model.Flight
 import domain.usecases.flight.GetFlightSaved
-import domain.usecases.flight.di.FlightDataDI
 import domain.usecases.flight.GetFlights
+import domain.usecases.flight.di.FlightDataDI
 import domain.usecases.ticket.AssignFlightToTicket
 import domain.usecases.ticket.di.TicketDataDI
 import presentation.PresentationFormat
-import presentation.extfunction.isMenuOptionValid
 import presentation.flight.FlightPresentationFactory
+import presentation.menu.UIMenu
 import java.time.Month
 
 fun main() {
     val format = PresentationFormat.CONSOLE
-
-    val getFlights = GetFlights(
-        FlightDataDI().providesFlights()
-    ).invoke(Month.JANUARY)
     val flightsPresentation = FlightPresentationFactory().getPresentationFormat(format)
+    val uiMenuFlight = object : UIMenu<Flight> {}
 
-    var flightOption = ""
+    /** 1. Showing Flight List */
+    val flightData = FlightDataDI().providesFlights()
+    val flightsMap = GetFlights(flightData).invoke(Month.JANUARY)
+    val flightSelected = uiMenuFlight.showMenu(
+        flightsMap, flightsPresentation
+    )
 
-    do {
-        getFlights.forEach { (t, u) ->
-            print("$t. ")
-            println(flightsPresentation.format(u))
-        }
-        println("*** Select Number Option ***")
-        flightOption = readLine().orEmpty()
-//        val isValidOption = flightOption.all { it.isDigit() } && getFlights.containsKey(flightOption.toInt())
-//    } while (flightOption.isBlank() || flightOption.isEmpty() || !isValidOption)
-    } while (!flightOption.isMenuOptionValid(getFlights))
-
-    println()
-    println("Option Selected $flightOption")
-
-    val flight = getFlights[flightOption.toInt()]
+    /** 2. Saving Flight in Ticket */
     AssignFlightToTicket(
         TicketDataDI().providesTicket()
-    ).invoke(flight)
+    ).invoke(flightSelected)
 
     val flightSaved = GetFlightSaved(
         TicketDataDI().providesTicket()
     ).invoke()
 
     println("Flight Saved")
-    println(flightsPresentation.format(flightSaved))
+    println(
+        flightsPresentation.format(flightSaved)
+    )
+
 }
