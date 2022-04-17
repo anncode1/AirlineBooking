@@ -1,10 +1,10 @@
 package domain.usecases.ticket.di
 
-import data.ticket.TicketSingleton
-import domain.datasource.ticket.TicketDataSource
+import data.ticket.TicketListSingleton
+import domain.datasource.ticket.TicketsDataSource
 
 class TicketDataDI {
-    fun providesTicket(): TicketDataSource {
-        return TicketSingleton()
+    fun providesTicket(): TicketsDataSource {
+        return TicketListSingleton()
     }
 }
