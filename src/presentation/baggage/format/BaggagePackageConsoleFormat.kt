@@ -1,11 +1,11 @@
-package presentation.baggage
+package presentation.baggage.format
 
 import domain.model.baggage.pack.BaggagePackage
 import domain.model.baggage.type.BaggageType
 import presentation.utils.Formatter
-import presentation.baggage.types.BaggageTypesConsole
+
 // 4. Mostrar
-class BaggagePackageConsole(
+class BaggagePackageConsoleFormat(
     private val baggageType: Formatter<BaggageType>
 ) : Formatter<BaggagePackage> {
     override fun format(t: BaggagePackage): String {
