@@ -21,15 +21,16 @@ import java.time.Month
 
 fun main() {
     val format = PresentationFormat.CONSOLE
+    val ticketData = TicketDataDI().providesTicketData()
     val flightsPresentation = FlightPresentationFactory().getPresentationFormat(format)
     val baggagePackPresentation = BaggagePackPresentationFactory().getPresentationFormat(format)
 
     /** 1. Showing Flight List */
-    val flightData = FlightDataDI().providesFlights()
     val uiMenuFlight = object : UIMenu<Flight> {}
+    val flightData = FlightDataDI().providesFlights()
     val flightsMap = GetFlights(flightData).invoke(Month.JANUARY)
     val flightSelected = uiMenuFlight.showMenu(
-            flightsMap, flightsPresentation
+        flightsMap, flightsPresentation
     )
 
     /** 2. Saving Flight in Ticket */
@@ -37,9 +38,7 @@ fun main() {
         TicketDataDI().providesTicket()
     ).invoke(flightSelected)
 
-    val flightSaved = GetFlightSaved(
-        TicketDataDI().providesTicket()
-    ).invoke()
+    val flightSaved = GetFlightSaved(ticketData).invoke()
 
     println("Flight Saved")
     println(
@@ -79,13 +78,9 @@ fun main() {
 
 
     /** 4. Saving Baggage in Ticket */
-    AssignBaggagePackageToTicket(
-        TicketDataDI().providesTicket()
-    ).invoke(baggagePackageSelected)
+    AssignBaggagePackageToTicket(ticketData).invoke(baggagePackageSelected)
 
-    val baggageSaved = GetBaggageSaved(
-        TicketDataDI().providesTicket()
-    ).invoke()
+    val baggageSaved = GetBaggageSaved(ticketData).invoke()
 
     println("Baggage Package Saved")
     println(
