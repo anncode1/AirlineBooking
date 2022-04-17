@@ -15,7 +15,7 @@ class AssignPassengerToTicket(
             this.passenger = passengers.first()
         }
 
-        val tickets = passengers.drop(0).map {
+        val tickets = passengers.drop(1).map {
             val ticket = Ticket().apply {
                 this.passenger = it
                 this.flight = firstTicket.flight
@@ -26,6 +26,8 @@ class AssignPassengerToTicket(
             ticket
         }
 
-        return ticketsDataSource.tickets + tickets
+        ticketsDataSource.tickets += tickets
+
+        return ticketsDataSource.tickets
     }
 }
