@@ -29,27 +29,24 @@ import java.time.Month
 
 fun main() {
     val format = PresentationFormat.CONSOLE
+    val ticketData = TicketDataDI().providesTicketData()
     val flightsPresentation = FlightPresentationFactory().getPresentationFormat(format)
     val baggagePackPresentation = BaggagePackPresentationFactory().getPresentationFormat(format)
     val seatSectionPresentation = SeatSectionPresentationFactory().getPresentationFormat(format)
     val seatPresentation = SeatPresentationFactory().getPresentationFormat(format)
 
     /** 1. Showing Flight List */
-    val flightData = FlightDataDI().providesFlights()
     val uiMenuFlight = object : UIMenu<Flight> {}
+    val flightData = FlightDataDI().providesFlights()
     val flightsMap = GetFlights(flightData).invoke(Month.JANUARY)
     val flightSelected = uiMenuFlight.showMenu(
-            flightsMap, flightsPresentation
+        flightsMap, flightsPresentation
     )
 
     /** 2. Saving Flight in Ticket */
-    AssignFlightToTicket(
-        TicketDataDI().providesTicket()
-    ).invoke(flightSelected)
+    AssignFlightToTicket(ticketData).invoke(flightSelected)
 
-    val getFlightSaved = GetFlightSaved(
-        TicketDataDI().providesTicket()
-    )
+    val getFlightSaved = GetFlightSaved(ticketData)
     val flightSaved = getFlightSaved.invoke()
 
     println("Flight Saved")
@@ -84,13 +81,9 @@ fun main() {
 
 
     /** 4. Saving Baggage in Ticket */
-    AssignBaggagePackageToTicket(
-        TicketDataDI().providesTicket()
-    ).invoke(baggagePackageSelected)
+    AssignBaggagePackageToTicket(ticketData).invoke(baggagePackageSelected)
 
-    val baggageSaved = GetBaggageSaved(
-        TicketDataDI().providesTicket()
-    ).invoke()
+    val baggageSaved = GetBaggageSaved(ticketData).invoke()
 
     println("Baggage Package Saved")
     println(
@@ -112,13 +105,9 @@ fun main() {
     val seatSelected = uiSeatsMenu.showMenu(seatsMap, seatPresentation)
 
     /** 6. Save Seat Selected */
-    AssignSeatToTicket(
-        TicketDataDI().providesTicket()
-    ).invoke(seatSelected)
+    AssignSeatToTicket(ticketData).invoke(seatSelected)
 
-    val seatSaved = GetSeatSaved(
-        TicketDataDI().providesTicket()
-    ).invoke()
+    val seatSaved = GetSeatSaved(ticketData).invoke()
 
     println("Seat Saved")
     println(
