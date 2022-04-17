@@ -6,7 +6,13 @@ fun String.isNotBlankOrEmpty(): Boolean {
 
 fun <T> String.isMenuOptionValid(objectsMap: Map<Int, T>): Boolean {
     return if (isNotBlankOrEmpty()) {
-        val isValidOption = this.all { it.isDigit() } && objectsMap.containsKey(this.toInt())
+        val isValidOption = isNumberValid() && objectsMap.containsKey(this.toInt())
         return isValidOption
+    } else false
+}
+
+fun String.isNumberValid(): Boolean {
+    return if (isNotBlankOrEmpty()) {
+        this.all { it.isDigit() }
     } else false
 }

@@ -9,7 +9,7 @@ class Ticket {
     lateinit var passenger: Passenger
     lateinit var baggagePackage: BaggagePackage
     lateinit var seat: Seat
-    val totalPrice: BigDecimal //= flight.price + baggage.price + seat.price
+    var totalPrice: BigDecimal = BigDecimal(0) //= flight.price + baggage.price + seat.price
         get() {
             return if (this::flight.isInitialized)
                 flight.price + baggagePackage.price + seat.price

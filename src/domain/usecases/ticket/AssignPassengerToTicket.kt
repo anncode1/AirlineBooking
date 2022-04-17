@@ -10,9 +10,22 @@ import domain.model.Ticket
 class AssignPassengerToTicket(
     private val ticketsDataSource: TicketsDataSource
 ) {
-    operator fun invoke(passenger: Passenger): Ticket {
-        return ticketsDataSource.tickets.first().apply {
-            this.passenger = passenger
+    operator fun invoke(passengers: List<Passenger>): List<Ticket> {
+        val firstTicket = ticketsDataSource.tickets.first().apply {
+            this.passenger = passengers.first()
         }
+
+        val tickets = passengers.drop(0).map {
+            val ticket = Ticket().apply {
+                this.passenger = it
+                this.flight = firstTicket.flight
+                this.baggagePackage = firstTicket.baggagePackage
+                this.seat = firstTicket.seat
+                this.totalPrice = firstTicket.totalPrice
+            }
+            ticket
+        }
+
+        return ticketsDataSource.tickets + tickets
     }
 }
