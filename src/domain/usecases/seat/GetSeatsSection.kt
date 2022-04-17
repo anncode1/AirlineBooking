@@ -13,11 +13,11 @@ class GetSeatsSection(
         // flight selected
         val flight = getFlightSaved()
         val seatSectionsMap = flight
-            ?.airCraft
-            ?.seatSections
-            ?.mapIndexed { index, seatSection ->
+            .airCraft
+            .seatSections
+            .mapIndexed { index, seatSection ->
                 index + 1 to seatSection
-            }?.toMap()
-        return seatSectionsMap ?: mapOf()
+            }.toMap()
+        return seatSectionsMap
     }
 }

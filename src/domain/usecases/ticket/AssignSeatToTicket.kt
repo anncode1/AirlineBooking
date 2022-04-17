@@ -10,9 +10,11 @@ import domain.model.seat.Seat
 class AssignSeatToTicket(
     private val ticketDataSource: TicketDataSource
 ) {
-    operator fun invoke(seat: Seat): Ticket {
-        return ticketDataSource.ticket.apply {
-            this.seat = seat
+    operator fun invoke(seat: Seat?): Ticket? {
+        return seat?.let {
+            ticketDataSource.ticket.apply {
+                this.seat = it
+            }
         }
     }
 }
