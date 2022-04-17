@@ -1,6 +1,6 @@
 package domain.usecases.ticket
 
-import domain.datasource.ticket.TicketDataSource
+import domain.datasource.ticket.TicketsDataSource
 import domain.model.Ticket
 import domain.model.seat.Seat
 
@@ -8,11 +8,13 @@ import domain.model.seat.Seat
  * 6. Seleccionar un asiento
  * */
 class AssignSeatToTicket(
-    private val ticketDataSource: TicketDataSource
+    private val ticketsDataSource: TicketsDataSource
 ) {
-    operator fun invoke(seat: Seat): Ticket {
-        return ticketDataSource.ticket.apply {
-            this.seat = seat
+    operator fun invoke(seat: Seat?): Ticket? {
+        return seat?.let {
+            ticketsDataSource.tickets.first().apply {
+                this.seat = it
+            }
         }
     }
 }
