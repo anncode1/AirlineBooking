@@ -10,9 +10,11 @@ import domain.model.baggage.pack.BaggagePackage
 class AssignBaggagePackageToTicket(
     private val ticketDataSource: TicketDataSource
 ) {
-    operator fun invoke(baggagePackage: BaggagePackage): Ticket {
-        return ticketDataSource.ticket.apply {
-            this.baggagePackage = baggagePackage
+    operator fun invoke(baggagePackage: BaggagePackage?): Ticket? {
+        return baggagePackage?.let {
+            ticketDataSource.ticket.apply {
+                this.baggagePackage = it
+            }
         }
     }
 }
