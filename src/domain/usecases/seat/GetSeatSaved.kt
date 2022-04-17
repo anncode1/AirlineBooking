@@ -1,12 +1,12 @@
 package domain.usecases.seat
 
-import domain.datasource.ticket.TicketDataSource
+import domain.datasource.ticket.TicketsDataSource
 import domain.model.seat.Seat
 
 class GetSeatSaved(
-    private val ticketDataSource: TicketDataSource
+    private val ticketsDataSource: TicketsDataSource
 ) {
     operator fun invoke(): Seat {
-        return ticketDataSource.ticket.seat
+        return ticketsDataSource.tickets.first().seat
     }
 }
