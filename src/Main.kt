@@ -5,7 +5,7 @@ import data.airport.AirportLocalSource
 import data.baggage.BaggageRegularLocalSource
 import data.baggage.BaggageVClubLocalSource
 import data.flight.FlightLocalSource
-import data.ticket.TicketSingleton
+import data.ticket.TicketListSingleton
 import domain.datasource.baggage.BaggagePackageDataSource
 import domain.usecases.baggage.GetBaggagePackages
 import domain.usecases.flight.GetFlights
@@ -47,11 +47,11 @@ fun main() {
     printBaggagePacksConsole(vClubLocalSource)
 
     println("*** Flight Selected ***")
-    val ticketSingleton = TicketSingleton()
+    val ticketSingleton = TicketListSingleton()
     val flight = getFlights[1]
     AssignFlightToTicket(ticketSingleton).invoke(flight)
 
-    val flightSelected = ticketSingleton.ticket.flight
+    val flightSelected = ticketSingleton.tickets.first().flight
     println(
         FlightConsoleFormat().format(flightSelected)
     )
