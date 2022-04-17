@@ -1,15 +1,15 @@
 package domain.usecases.flight
 
-import domain.datasource.ticket.TicketDataSource
+import domain.datasource.ticket.TicketsDataSource
 import domain.model.Flight
 
 /**
  * 5 Mostrar los asientos disponibles
  * */
 class GetFlightSaved(
-    private val ticketDataSource: TicketDataSource
+    private val ticketsDataSource: TicketsDataSource
 ) {
     operator fun invoke(): Flight {
-        return ticketDataSource.ticket.flight
+        return ticketsDataSource.tickets.first().flight
     }
 }
