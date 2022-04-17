@@ -5,5 +5,5 @@ import java.math.BigDecimal
 
 // 1 Crear
 interface BaggagePackageDataSource {
-    fun getBaggagePacks(price: BigDecimal): Map<Int, BaggagePackage>
+    fun getBaggagePacks(): Map<Int, BaggagePackage>
 }
