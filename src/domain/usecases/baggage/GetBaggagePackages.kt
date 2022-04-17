@@ -12,7 +12,7 @@ class GetBaggagePackages(
     private val baggagePackageDataSource: BaggagePackageDataSource
 ) {
 
-    operator fun invoke(price: BigDecimal): Map<Int, BaggagePackage> {
-        return baggagePackageDataSource.getBaggagePacks(price)
+    operator fun invoke(): Map<Int, BaggagePackage> {
+        return baggagePackageDataSource.getBaggagePacks()
     }
 }
