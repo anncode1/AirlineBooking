@@ -34,9 +34,7 @@ fun main() {
     )
 
     /** 2. Saving Flight in Ticket */
-    AssignFlightToTicket(
-        TicketDataDI().providesTicket()
-    ).invoke(flightSelected)
+    AssignFlightToTicket(ticketData).invoke(flightSelected)
 
     val flightSaved = GetFlightSaved(ticketData).invoke()
 
