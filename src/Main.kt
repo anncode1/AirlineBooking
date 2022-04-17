@@ -13,10 +13,10 @@ import domain.usecases.ticket.AssignFlightToTicket
 import presentation.baggage.BaggagePackageConsole
 import presentation.baggage.types.BaggageTypesConsole
 import presentation.flight.formats.FlightConsoleFormat
-import java.math.BigDecimal
 import java.time.Month
 
 fun main() {
+
     val airportDataSource = AirportLocalSource()
     val airportBookingLocalSource = AirBookingLocalSource(airportDataSource)
     val airCraftLocalSource = AirCraftLocalSource()
@@ -29,19 +29,22 @@ fun main() {
         println(FlightConsoleFormat().format(u))
     }
 
+
     // 7. Crear
     println()
 
-    /*val basePrice = BigDecimal(50)
     val vClubLocalSource = BaggageVClubLocalSource()
+    val getVClubPackages = GetBaggagePackages(vClubLocalSource).invoke()
+
     val regularLocalSource = BaggageRegularLocalSource()
+    val getRegularPackages = GetBaggagePackages(regularLocalSource).invoke()
 
     // 8 crear
     println("*** VClub Baggage's ***")
-    printBaggagePacksConsole(regularLocalSource, basePrice)
+    printBaggagePacksConsole(regularLocalSource)
     println()
     println("*** Regular Baggage's ***")
-    printBaggagePacksConsole(vClubLocalSource, basePrice)*/
+    printBaggagePacksConsole(vClubLocalSource)
 
     println("*** Flight Selected ***")
     val ticketSingleton = TicketSingleton()
@@ -56,10 +59,9 @@ fun main() {
 
 // 8 crear
 fun printBaggagePacksConsole(
-    baggageDataSource: BaggagePackageDataSource,
-    basePrice: BigDecimal
+    baggageDataSource: BaggagePackageDataSource
 ) {
-    val getBaggagePackages = GetBaggagePackages(baggageDataSource).invoke(basePrice)
+    val getBaggagePackages = GetBaggagePackages(baggageDataSource).invoke()
 
     getBaggagePackages.forEach { (t, u) ->
         print("$t. ")
