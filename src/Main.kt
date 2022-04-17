@@ -13,9 +13,10 @@ import java.time.Month
 fun main() {
     val format = PresentationFormat.CONSOLE
     val flightsPresentation = FlightPresentationFactory().getPresentationFormat(format)
-    val uiMenuFlight = object : UIMenu<Flight> {}
+    val ticketData = TicketDataDI().providesTicketData()
 
     /** 1. Showing Flight List */
+    val uiMenuFlight = object : UIMenu<Flight> {}
     val flightData = FlightDataDI().providesFlights()
     val flightsMap = GetFlights(flightData).invoke(Month.JANUARY)
     val flightSelected = uiMenuFlight.showMenu(
@@ -23,13 +24,9 @@ fun main() {
     )
 
     /** 2. Saving Flight in Ticket */
-    AssignFlightToTicket(
-        TicketDataDI().providesTicket()
-    ).invoke(flightSelected)
+    AssignFlightToTicket(ticketData).invoke(flightSelected)
 
-    val flightSaved = GetFlightSaved(
-        TicketDataDI().providesTicket()
-    ).invoke()
+    val flightSaved = GetFlightSaved(ticketData).invoke()
 
     println("Flight Saved")
     println(

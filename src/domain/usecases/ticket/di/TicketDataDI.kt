@@ -4,7 +4,7 @@ import data.ticket.TicketListSingleton
 import domain.datasource.ticket.TicketsDataSource
 
 class TicketDataDI {
-    fun providesTicket(): TicketsDataSource {
+    fun providesTicketData(): TicketsDataSource {
         return TicketListSingleton()
     }
 }
