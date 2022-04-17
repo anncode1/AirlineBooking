@@ -4,8 +4,8 @@ import java.math.BigDecimal
 
 class Reservation {
     lateinit var code: String
-    val departureTickets: MutableList<Ticket> = mutableListOf()
-    val returnTickets: MutableList<Ticket> = mutableListOf()
+    var departureTickets: List<Ticket> = mutableListOf()
+    var returnTickets: List<Ticket> = mutableListOf()
     val total: BigDecimal
         get() {
             return departureTickets.sumOf {

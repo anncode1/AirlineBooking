@@ -9,6 +9,5 @@ class ReservationSingleton : ReservationDataSource {
         private val reservation = Reservation()
     }
 
-    override val reservation: Reservation
-        get() = TODO("Not yet implemented")
+    override val reservation: Reservation = ReservationSingleton.reservation
 }

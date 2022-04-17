@@ -2,18 +2,19 @@ package domain.usecases.reservation
 
 import domain.datasource.reservartion.ReservationDataSource
 import domain.model.Reservation
-import domain.model.Ticket
+import domain.usecases.ticket.GetTickets
 
 private const val CODE_SIZE = 5
-class AssignTicketToReservation(
-    private val reservationDataSource: ReservationDataSource
+class AssignTicketsToReservation(
+    private val reservationDataSource: ReservationDataSource,
+    private val getTickets: GetTickets
 ) {
 
-    operator fun invoke(ticket: Ticket): Reservation {
+    operator fun invoke(): Reservation {
         return reservationDataSource.reservation.apply {
             this.code = generateCode()
-            this.departureTickets.add(ticket)
-            this.returnTickets.add(ticket)
+            this.departureTickets = getTickets()
+            this.returnTickets = getTickets()
         }
     }
 

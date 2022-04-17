@@ -11,13 +11,11 @@ import domain.usecases.baggage.GetBaggageSaved
 import domain.usecases.flight.GetFlightSaved
 import domain.usecases.flight.GetFlights
 import domain.usecases.flight.di.FlightDataDI
+import domain.usecases.reservation.di.ReservationDI
 import domain.usecases.seat.GetSeatSaved
 import domain.usecases.seat.GetSeatsBy
 import domain.usecases.seat.GetSeatsSection
-import domain.usecases.ticket.AssignBaggagePackageToTicket
-import domain.usecases.ticket.AssignFlightToTicket
-import domain.usecases.ticket.AssignPassengerToTicket
-import domain.usecases.ticket.AssignSeatToTicket
+import domain.usecases.ticket.*
 import domain.usecases.ticket.di.TicketDataDI
 import presentation.PresentationFormat
 import presentation.baggage.BaggagePackPresentationFactory
@@ -27,6 +25,7 @@ import presentation.flight.FlightPresentationFactory
 import presentation.menu.UIInputData
 import presentation.menu.UIMenu
 import presentation.passenger.PassengerPresentationFactory
+import presentation.reservation.ReservationPresentationFactory
 import presentation.seat.SeatPresentationFactory
 import presentation.seat.section.SeatSectionPresentationFactory
 import presentation.utils.Formatter
@@ -40,6 +39,7 @@ fun main() {
     val seatSectionPresentation = SeatSectionPresentationFactory().getPresentationFormat(format)
     val seatPresentation = SeatPresentationFactory().getPresentationFormat(format)
     val passengerPresentation = PassengerPresentationFactory().getPresentationFormat(format)
+    val reservationPresentation = ReservationPresentationFactory().getPresentationFormat(format)
 
     /** 1. Showing Flight List */
     val uiMenuFlight = object : UIMenu<Flight> {}
@@ -121,26 +121,6 @@ fun main() {
     )
 
     /** 7. Introduce Information Passenger */
-    /*var name = ""
-    do {
-        println("Introduce your Name")
-        name = readLine().orEmpty()
-    } while (!name.isNotBlankOrEmpty())
-
-    var email = ""
-    do {
-        println("Introduce your Email")
-        email = readLine().orEmpty()
-    } while (!email.isNotBlankOrEmpty())
-
-    var phone = ""
-    do {
-        println("Introduce your Phone")
-        phone = readLine().orEmpty()
-    } while (!phone.isNotBlankOrEmpty())
-
-    val passenger = Passenger(name, email, phone)*/
-
     var passengerQty = ""
     do {
         println("How many passengers are?")
@@ -158,10 +138,15 @@ fun main() {
     }
 
 
+    /** 8. Get Reservation */
     AssignPassengerToTicket(ticketData).invoke(passengers)
 
+    val reservation = ReservationDI().providesAssignTicketsToReservationUseCase().invoke()
+
+    println()
+    println("*** RESERVATION ***")
     println(
-        passengerPresentation.format(passengers)
+        reservationPresentation.format(reservation)
     )
 
 }
